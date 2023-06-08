@@ -2,7 +2,7 @@ import express from "express"
 import axios from "axios"
 
 const app = express()
-const apiKey = "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"
+const apiKey = ""
 
 app.use(express.json())
 
