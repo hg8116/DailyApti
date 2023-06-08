@@ -1,16 +1,18 @@
 import './App.css'
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
+import Questions from './pages/Questions'
 
 function App() {
-
-const printRandomNumber = () => {
-  console.log(Math.random())
-}
-
   return (
-    <>
-      <h1>React App</h1>
-      <button onClick={printRandomNumber}>Print Random Number</button>
-    </>
+    <Router>
+      <div className='App'>
+        <h1>DailyApti</h1>
+        <Link to="/questions">Questions</Link>
+        <Switch>
+          <Route path='/questions' component={Questions} />
+        </Switch>
+      </div>
+    </Router>
   )
 }
 
