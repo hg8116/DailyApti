@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
 import routes from "./routes/index.js"
+import cors from "cors"
 
 dotenv.config()
 const app = express()
@@ -20,7 +21,7 @@ database.once("open", () => {
   console.log("Connected to database")
 })
 
-app.use("/api", routes)
+app.use("/api", cors(), routes)
 
 app.get("/", (req, res) => {
   res.send("Hello World!")
