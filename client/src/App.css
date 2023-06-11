@@ -41,10 +41,18 @@
   color: #888;
 } */
 
-.correct{
+/* .correct{
   color: green;
 }
 
 .incorrect{
+  color: red;
+} */
+
+.correct-option {
+  color: green;
+}
+
+.incorrect-option {
   color: red;
 }

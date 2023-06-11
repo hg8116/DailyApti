@@ -7,14 +7,13 @@ const api = axios.create({
 
 const Questions = () => {
   const [questions, setQuestions] = useState([])
-  const [selectedOption, setSelectedOption] = useState({});
-const [isCorrect, setIsCorrect] = useState({});
+  const [selectedOptions, setSelectedOptions] = useState([])
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const count = 5
-        const response = await api.get(`/questions/random/${count}}`)
+        const response = await api.get(`/questions/random/${count}`)
         const questionData = response.data
         setQuestions(questionData)
       } catch (error) {
@@ -23,26 +22,20 @@ const [isCorrect, setIsCorrect] = useState({});
     }
 
     fetchQuestions()
-    // console.log(questions)
   }, [])
 
   const handleOptionClick = (questionIndex, selectedOption) => {
-    const question = questions[questionIndex];
-    const selectedOptionLower = selectedOption.toLowerCase();
-    const answerLower = question.answer.toLowerCase();
-    setSelectedOption(prevSelectedOptions => ({
-      ...prevSelectedOptions,
-      [questionIndex]: selectedOptionLower,
-    }));
-    setIsCorrect(prevIsCorrect => ({
-      ...prevIsCorrect,
-      [questionIndex]: selectedOptionLower === answerLower,
-      
-    }));
-    console.log(selectedOption)
-    console.log(isCorrect)
-  };
-  
+    const correctOption = questions[questionIndex].answer.toLowerCase()
+    const updatedSelectedOptions = [...selectedOptions]
+    updatedSelectedOptions[questionIndex] = selectedOption
+    setSelectedOptions(updatedSelectedOptions)
+
+    if (selectedOption === correctOption) {
+      console.log("Correct")
+    } else {
+      console.log("Incorrect")
+    }
+  }
 
   return (
     <div className="question-page">
@@ -51,12 +44,52 @@ const [isCorrect, setIsCorrect] = useState({});
         <div key={index}>
           <h3>Q{index + 1}</h3>
           <p>{question.question}</p>
-          <ul>
-            <li onClick={() => handleOptionClick(index, "a")} className={selectedOption[index]==="a" ? (isCorrect[index] === "a" ? "correct" : "incorrect") : ""}>{question.a}</li>
-            <li onClick={() => handleOptionClick(index, "b")} className={selectedOption[index]==="b" ? (isCorrect[index] === "b" ? "correct" : "incorrect") : ""}>{question.b}</li>
-            <li onClick={() => handleOptionClick(index, "c")} className={selectedOption[index]==="c" ? (isCorrect[index] === "c" ? "correct" : "incorrect") : ""}>{question.c}</li>
-            <li onClick={() => handleOptionClick(index, "d")} className={selectedOption[index]==="d" ? (isCorrect[index] === "d" ? "correct" : "incorrect") : ""}>{question.d}</li>
-          </ul>
+          <ol type="a">
+            <li
+              className={`${
+                selectedOptions[index] === "a"
+                  ? selectedOptions[index] === question.answer.toLowerCase()
+                    ? "correct-option"
+                    : "incorrect-option"
+                  : ""
+              }`}
+              onClick={() => handleOptionClick(index, "a")}>
+              {question.a}
+            </li>
+            <li
+              className={`${
+                selectedOptions[index] === "b"
+                  ? selectedOptions[index] === question.answer.toLowerCase()
+                    ? "correct-option"
+                    : "incorrect-option"
+                  : ""
+              }`}
+              onClick={() => handleOptionClick(index, "b")}>
+              {question.b}
+            </li>
+            <li
+              className={`${
+                selectedOptions[index] === "c"
+                  ? selectedOptions[index] === question.answer.toLowerCase()
+                    ? "correct-option"
+                    : "incorrect-option"
+                  : ""
+              }`}
+              onClick={() => handleOptionClick(index, "c")}>
+              {question.c}
+            </li>
+            <li
+              className={`${
+                selectedOptions[index] === "d"
+                  ? selectedOptions[index] === question.answer.toLowerCase()
+                    ? "correct-option"
+                    : "incorrect-option"
+                  : ""
+              }`}
+              onClick={() => handleOptionClick(index, "d")}>
+              {question.d}
+            </li>
+          </ol>
         </div>
       ))}
     </div>
