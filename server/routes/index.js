@@ -40,6 +40,32 @@ router.get("/questions", async (req, res) => {
   }
 })
 
+// (Not working)
+// // Modified route to get n random questions but are same for a seed
+// router.get("/questions/random/:count", async (req, res) => {
+//   try {
+//     const count = parseInt(req.params.count)
+//     const seed = req.query.seed
+//     const totalQuestions = await Question.countDocuments()
+//     if (count > totalQuestions) {
+//       return res
+//         .status(400)
+//         .json({ error: "Not enough questions in the database" })
+//     }
+//     const pipeline = seed
+//       ? [{ $match: { seed: seed } }, { $sample: { size: count } }]
+//       : [{ $sample: { size: count } }]
+//     const randomQuestions = await Question.aggregate(pipeline)
+//     res.json(randomQuestions)
+//   } catch (error) {
+//     console.log(error)
+//     res
+//       .status(500)
+//       .json({ error: "An error occurred while getting random questions" })
+//   }
+// })
+
+// Simple route to get n random questions
 router.get("/questions/random/:count", async (req, res) => {
   try {
     const count = parseInt(req.params.count)
