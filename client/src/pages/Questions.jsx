@@ -2,7 +2,8 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api",
+  // baseURL: "http://localhost:3000/api",
+  baseURL: "https://dailyaptibackend.onrender.com/api",
 })
 
 const Questions = () => {
